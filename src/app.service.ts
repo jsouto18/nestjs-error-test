@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import WoundType from './User.entity';
+import User from './User.entity';
 
 @Injectable()
 export class AppService {
   constructor(
-    @InjectRepository(WoundType)
-    private woundTypeRepository: Repository<WoundType>,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
   ) {}
 
   getHello(): string {
-    this.woundTypeRepository.find({ relations: ['test'] });
+    this.userRepository.find({ relations: ['test'] });
     return 'Hello World!';
   }
 }
