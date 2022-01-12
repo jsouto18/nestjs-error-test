@@ -3,6 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import User from './User.entity';
 
+const sleep = (timeout: number) =>
+  new Promise((resolve) => setTimeout(resolve, timeout));
+
 @Injectable()
 export class AppService {
   constructor(
@@ -10,8 +13,11 @@ export class AppService {
     private userRepository: Repository<User>,
   ) {}
 
-  getHello(): string {
-    this.userRepository.find({ relations: ['test'] });
+  async getHello(): Promise<string> {
+    const query = this.userRepository.find({ relations: ['test'] });
+    await sleep(3000);
+    const result = await query;
+    console.log(result);
     return 'Hello World!';
   }
 }
